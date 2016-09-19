@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(id="frm-memo",action='/',method='post')
+    input(id="hdn-text-id" type='hidden',name='text_id')
+    label(for='txt-memo') Input Memo
+    input(id='txt-memo',type='text',value='',name='text_memo')
+    input(id="btn-submit" type='submit',value='Insert')
+  ul#result
