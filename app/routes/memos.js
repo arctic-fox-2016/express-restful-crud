@@ -46,20 +46,23 @@ router.route('/')
               } else {
                   //Blob has been created
                   console.log('POST creating new memo: ' + memo);
-                  res.format({
-                      //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
-                    html: function(){
-                        // If it worked, set the header so the address bar doesn't still say /adduser
-                        res.location("memos");
-                        // And forward to success page
-                        res.redirect("/memos");
-                    },
-                    //JSON response will show the newly created blob
-                    json: function(){
-                        res.json(memo);
-                    }
-                });
-              }
+                //   res.format({
+                //       //HTML response will set the location and redirect back to the home page. You could also create a 'success' page if that's your thing
+                //     // html: function(){
+                //     //     // If it worked, set the header so the address bar doesn't still say /adduser
+                //     //     res.location("memos");
+                //     //     // And forward to success page
+                //     //     res.redirect("/memos");
+                //     // },
+                //     //JSON response will show the newly created blob
+                //     json: function(){
+                //         res.json(memo);
+                //         console.log(memo)
+                //     }
+                // });
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.stringify(memo));
+}
         })
     });
 

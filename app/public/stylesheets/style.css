@@ -8,9 +8,36 @@ a {
 }
 
 table{
-  border:solid 1px red
+  background: black
+}
+td.h{
+  background: #FF5252;
+  width: 200px
+}
+td.h.i{
+  width: 30px
+}
+td.h.m{
+  width: 200px
 }
 
+td.b{
+  background: #AA00FF
+}
 td{
-  border: solid 1px black
+  text-align: center;
+}
+input[type='button']{
+  background-color: #00B0FF;
+  color: white;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 5px;
+}
+#editor{
+  width: 500px;
+  height: 35px;
+  font-size: 20px;
 }

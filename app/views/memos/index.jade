@@ -5,18 +5,67 @@ block content
          #{title}
     p
       a(href='/memos/new') Add New Memo
+
+    div
+      form(name="addmemo",method="post")
+        input(type='text' id='editor')
+        input(type='button' id='btnEditor' value='Add')
     table
+        thead
+          td.h.i id
+          td.h.m memo
+          td.h.m action
         - each memo, i in memos
             tr
-              td
+              td.b
                 = memo._id
-              td
+              td.b
                 = memo.name
-              td
-                form(action='/memos/#{memo._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                  input(type='hidden',value='DELETE',name='_method')
-                  button(type='submit').
-                      Delete
-              td
-                p
-                  a(href='/memos/#{memo._id}/edit') Edit
+              td.b
+                  input(type='button' value='Delete' name='delete' id= memo._id, class='btnDelete')
+                  input(type='button' value='Edit' name='edit' id= memo._id, class='btnEdit')
+      script.
+      var editfunc = function(){
+      var myid = $(this).attr('id')
+      var myurl = `/memos/${myid}/edit`
+      var row = $(this).parent().parent()
+
+      $('#editor').val(row[0].childNodes[1].innerText)
+      $('#btnEditor').val('update')
+      }
+      var deletefunc = function(){
+      var myid = $(this).attr('id')
+      var myurl = `/memos/${myid}/edit`
+      var row = $(this).parent().parent()
+      $.ajax({
+      type:'POST',
+      enctype:'application/x-www-form-urlencoded',
+      url:myurl,
+      data: {_method:'DELETE'}
+      }).done(function(){
+        row.remove()
+      })
+      }
+
+      $("#btnEditor").on('click',function(){
+      var myid = $(this).attr('id')
+      $.ajax({
+      type:'POST',
+      enctype:'application/x-www-form-urlencoded',
+      url:'/memos',
+      data: {memolist:$('#editor')[0].value},
+      success: function(response){
+      var tdId = `<td class='b'>${response._id}</td>`
+      var tdMemo = `<td class='b'>${response.name}</td>`
+      var btnDelete = `<input type='button' value='Delete' name='delete' id=${response._id} class='btnDelete'>`
+      var btnEdit = `<input type='button' value='Edit' name='edit' id=${response._id} class='btnEdit'>`
+      var tdAction = `<td class='b'>${btnDelete}${btnEdit}</td>`
+      var responseRow = `<tr>${tdId}${tdMemo}${tdAction}</tr>`
+        $('tbody').append(responseRow)
+        $(".btnDelete").on('click',deletefunc)
+        $(".btnEdit").bind('click',editfunc)
+      }
+      })
+      })
+      $(".btnDelete").on('click',deletefunc)
+      $(".btnEdit").bind('click',editfunc)
