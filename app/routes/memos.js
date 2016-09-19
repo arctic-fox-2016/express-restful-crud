@@ -68,37 +68,89 @@ router.get('/new', function(req, res) {
 });
 
 router.route('/:id/edit')
-.delete(function (req, res){
-    //find memo by ID
-    mongoose.model('Memo').findById(req.params.id, function (err, memo) {
-        if (err) {
-            return console.error(err);
-        } else {
-            console.log(memo);
-            // console.log('DELETE removing ID: ' + memo._id);
-            memo.remove(function (err, memo) {
-                if (err) {
-                    return console.error(err);
-                } else {
-                    //Returning success messages saying it was deleted
-                    console.log('DELETE removing ID: ' + memo._id);
-                    res.format({
-                        //HTML returns us back to the main page, or you can create a success page
-                          html: function(){
-                               res.redirect("/memos");
-                         },
-                         //JSON returns the item with the message that is has been deleted
-                        json: function(){
-                               res.json({message : 'deleted',
-                                   item : memo
-                               });
-                         }
-                      });
-                }
-            });
-        }
-    });
-});
+      .delete(function (req, res){
+          //find memo by ID
+          mongoose.model('Memo').findById(req.params.id, function (err, memo) {
+              if (err) {
+                  return console.error(err);
+              } else {
+                  console.log(memo);
+                  // console.log('DELETE removing ID: ' + memo._id);
+                  memo.remove(function (err, memo) {
+                      if (err) {
+                          return console.error(err);
+                      } else {
+                          //Returning success messages saying it was deleted
+                          console.log('DELETE removing ID: ' + memo._id);
+                          res.format({
+                              //HTML returns us back to the main page, or you can create a success page
+                                html: function(){
+                                     res.redirect("/memos");
+                               },
+                               //JSON returns the item with the message that is has been deleted
+                              json: function(){
+                                     res.json({message : 'deleted',
+                                         item : memo
+                                     });
+                               }
+                            });
+                      }
+                  });
+              }
+          });
+      })
+      .put(function(req, res) {
+    	    // Get our REST or form values. These rely on the "name" attributes
+    	    var name = req.body.name;
+    	    //find the document by ID
+    	    mongoose.model('Memo').findById(req.params.id, function (err, memo) {
+    	        //update it
+    	        memo.update({
+    	            name : name
+    	        }, function (err, memoID) {
+    	          if (err) {
+    	              res.send("There was a problem updating the information to the database: " + err);
+    	          }
+    	          else {
+                    console.log("akakakaka");
+    	                  //HTML responds by going back to the page or you can be fancy and create a new view that shows a success page.
+    	                  res.format({
+    	                      html: function(){
+    	                           res.redirect("/memos");
+    	                     },
+    	                     //JSON responds showing the updated values
+    	                    json: function(){
+    	                           res.json(memo);
+    	                     }
+    	                  });
+    	           }
+    	        })
+    	    });
+    	})
+      .get(function(req, res) {
+    	    //search for the blob within Mongo
+    	    mongoose.model('Memo').findById(req.params.id, function (err, memo) {
+    	        if (err) {
+    	            console.log('GET Error: There was a problem retrieving: ' + err);
+    	        } else {
+    	            //Return the blob
+    	            console.log('GET Retrieving ID: ' + memo._id);
+    	            res.format({
+    	                //HTML response will render the 'edit.jade' template
+    	                html: function(){
+    	                       res.render('memos/edit', {
+    	                          title: 'Memos' + memo._id,
+    	                          "memo" : memo
+    	                      });
+    	                 },
+    	                 //JSON response will return the JSON output
+    	                json: function(){
+    	                       res.json(memo);
+    	                 }
+    	            });
+    	        }
+    	    });
+    	})
 
 
 module.exports = router;

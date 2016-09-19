@@ -18,7 +18,5 @@ block content
                   button(type='submit').
                       Delete
               td
-                form(action='/memos/#{memo._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                  input(type='hidden',value='EDIT',name='_method')
-                  button(type='submit').
-                      Edit
+                p
+                  a(href='/memos/#{memo._id}/edit') Edit
