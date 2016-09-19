@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+    h1.
+         #{title}
+    p
+      a(href='/memos/new') Add New Memo
+    table
+        - each memo, i in memos
+            tr
+              td
+                = memo._id
+              td
+                = memo.name
+              td
+                form(action='memos/#{memo._id}/edit')
+                  input(type='hidden', value='DELETE', name='_method')
+                  button(type='submit').
+                    Delete
