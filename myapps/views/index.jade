@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(action='/post', method='POST')
+    input(name='text')
+    input(type='submit' value='Add New Memo')
+  form(action='/update', method='POST')
+    input(name='text')
+    input(type='submit' value='Edit Memo (ID,New Value)')
+
+  table
+    thead
+      tr
+        td ID
+        td Activity
+        td Created At
+        td Delete
+
+    tbody
+      - for (let i = 0; i < data.length; i++)
+        tr
+          td #{data[i].memo_id}
+          td #{data[i].memo}
+          td #{data[i].created_at}
+          td
+            form(action='/delete', method='POST')
+              input(type="hidden" name="memo_id" value='#{data[i].memo_id}')
+              input(type='submit' value='Delete')
+
+  script(type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js")
+  script.
+    $(document).ready(function () {
+      console.log("hello world");
+    });
