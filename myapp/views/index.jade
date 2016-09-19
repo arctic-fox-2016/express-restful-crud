@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  ul
+  - for (var i = 0; i < data.length; ++i) {
+    li= data[i].name
+    form(action='/delete?id=#{data[i].id}', method="POST")
+      input(type='submit' value="Delete")
+  - }
+  form(action='/memos', method='POST')
+    input(type='text', placeholder='name', name='name')
+    button(type='submit') Submit
