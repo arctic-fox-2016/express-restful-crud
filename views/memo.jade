@@ -7,9 +7,13 @@ html(lang='en')
       | List All Memo
 
     - for (var x = 0; x < users.length; x++)
-      li #{users[x]._id} #{users[x]._namamemo} #{users[x].description}
-      form(action='/delete?id=#{users[x]._id}' ,method='POST')
+      li #{users[x]._id} #{users[x].namamemo} #{users[x].description}
+      form(action='/delete?namamemo=#{users[x].namamemo}' ,method='POST')
         button(type='submit') delete
+
+      form(action='/users?namamemo=#{users[x].namamemo}' ,method='POST')
+        button(type='submit') update
+
 
 
   form(action='/add', method='POST')

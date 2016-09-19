@@ -19,7 +19,7 @@ router.get('/memo', (request, res) => {
 
 router.post('/add', (req,response) => {
   let db = req.db
-  db.collection('memos').save(req.body, (err, res) => {
+  db.collection('memos').save({"namamemo": req.body.namamemo}, (err, res) => {
     if (err) return console.log(err);
     console.log('saved to database')
     response.redirect('http://localhost:3000/memo')
@@ -41,12 +41,28 @@ router.post('/view', (req,response) => {
 router.post('/delete', (req,response) => {
 
   let db = req.db
-  console.log('masuk ke delete');
-  console.log(req.query.id);
-  db.collection('memos').remove({"_id": { "$oid" : '57dfc1c6ce290c1ad9b1f10d' }})
-
-
+  //console.log('masuk ke delete');
+  console.log(req.query.namamemo);
+  db.collection('memos').remove({"namamemo": req.query.namamemo})
+  response.redirect('http://localhost:3000/memo')
 })
+
+// ini buat save updatean
+router.post('/update', (req,response) => {
+
+  let db = req.db
+  //console.log('masuk ke delete');
+  db.people.update(
+   { "namamemo": req.body.namamemo },
+   {
+      "namamemo": req.body.namamemo ,
+      rating: 1,
+      score: 1
+   },
+   { upsert: true }
+)
+})
+
 
 
 module.exports = router;

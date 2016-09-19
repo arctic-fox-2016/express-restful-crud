@@ -1,0 +1,17 @@
+
+h1
+  | Update Memo
+
+p
+  #{updatejade[0]._id} #{updatejade[0].namamemo} #{updatejade[0].description}
+
+
+  form(action='/update', method='POST')
+    p
+      | Nama Memo :
+      input(type='text', name='namamemo', value='#{updatejade[0].namamemo}')
+
+    p
+      | Isi Memo :
+      input(type='text', name='description', value='#{updatejade[0].description}')
+    button(type='submit') update
