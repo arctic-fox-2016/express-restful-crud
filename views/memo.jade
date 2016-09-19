@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+  head
+    title Memo
+  body
+    h3
+      | List All Memo
+
+    - for (var x = 0; x < users.length; x++)
+      li #{users[x]._id} #{users[x]._namamemo} #{users[x].description}
+      form(action='/delete?id=#{users[x]._id}' ,method='POST')
+        button(type='submit') delete
+
+
+  form(action='/add', method='POST')
+    p
+      | Nama Memo :
+      input(type='text', name='namamemo')
+    p
+      | Isi Memo :
+      input(type='text', name='description')
+
+    button(type='submit') submit
