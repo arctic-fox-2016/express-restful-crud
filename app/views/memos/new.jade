@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+	h1.
+		#{title}
+	form(name="addmemo",method="post",action="/memos")
+		p Input :
+			input#inputName(type="text", name="memolist")
+		p
+			button#btnSubmit(type="submit") submit
