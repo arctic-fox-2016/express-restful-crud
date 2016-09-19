@@ -13,7 +13,12 @@ block content
               td
                 = memo.name
               td
-                form(action='memos/#{memo._id}/edit')
-                  input(type='hidden', value='DELETE', name='_method')
+                form(action='/memos/#{memo._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='DELETE',name='_method')
                   button(type='submit').
-                    Delete
+                      Delete
+              td
+                form(action='/memos/#{memo._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='EDIT',name='_method')
+                  button(type='submit').
+                      Edit

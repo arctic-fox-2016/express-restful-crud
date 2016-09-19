@@ -66,36 +66,39 @@ router.route('/')
 router.get('/new', function(req, res) {
     res.render('memos/new', { title: 'Add New Memo' });
 });
-//
-// router.route('/:id/edit')
-// .delete(function (req, res){
-//     //find blob by ID
-//     mongoose.model('Blob').findById(req.id, function (err, blob) {
-//         if (err) {
-//             return console.error(err);
-//         } else {
-//             //remove it from Mongo
-//             blob.remove(function (err, blob) {
-//                 if (err) {
-//                     return console.error(err);
-//                 } else {
-//                     //Returning success messages saying it was deleted
-//                     console.log('DELETE removing ID: ' + blob._id);
-//                     res.format({
-//                         //HTML returns us back to the main page, or you can create a success page
-//                           html: function(){
-//                                res.redirect("/blobs");
-//                          },
-//                          //JSON returns the item with the message that is has been deleted
-//                         json: function(){
-//                                res.json({message : 'deleted',
-//                                    item : blob
-//                                });
-//                          }
-//                       });
-//                 }
-//             });
-//         }
-//     });
-// });
+
+router.route('/:id/edit')
+.delete(function (req, res){
+    //find memo by ID
+    mongoose.model('Memo').findById(req.params.id, function (err, memo) {
+        if (err) {
+            return console.error(err);
+        } else {
+            console.log(memo);
+            // console.log('DELETE removing ID: ' + memo._id);
+            memo.remove(function (err, memo) {
+                if (err) {
+                    return console.error(err);
+                } else {
+                    //Returning success messages saying it was deleted
+                    console.log('DELETE removing ID: ' + memo._id);
+                    res.format({
+                        //HTML returns us back to the main page, or you can create a success page
+                          html: function(){
+                               res.redirect("/memos");
+                         },
+                         //JSON returns the item with the message that is has been deleted
+                        json: function(){
+                               res.json({message : 'deleted',
+                                   item : memo
+                               });
+                         }
+                      });
+                }
+            });
+        }
+    });
+});
+
+
 module.exports = router;
