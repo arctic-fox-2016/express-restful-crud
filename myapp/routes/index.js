@@ -30,6 +30,12 @@ router.post('/delete', function(req, res, next){
   res.redirect('/')
 })
 
+router.post('/edit', function(req, res, next){
+  model.Memo.update({name: req.body.edit},{where: {id: req.query.id}})
+  console.log('edit is successful')
+  res.redirect('/')
+})
+
 
 
 module.exports = router;

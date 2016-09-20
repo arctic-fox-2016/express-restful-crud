@@ -6,6 +6,9 @@ block content
     li= data[i].name
     form(action='/delete?id=#{data[i].id}', method="POST")
       input(type='submit' value="Delete")
+    form(action='/edit?id=#{data[i].id}', method="POST")
+      input(type='text', placeholder='name', name='edit')
+      button(type='submit') Submit
   - }
   form(action='/memos', method='POST')
     input(type='text', placeholder='name', name='name')
