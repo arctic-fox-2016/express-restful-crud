@@ -1,0 +1,43 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+table{
+  background: black
+}
+td.h{
+  background: #FF5252;
+  width: 200px
+}
+td.h.i{
+  width: 30px
+}
+td.h.m{
+  width: 200px
+}
+
+td.b{
+  background: #AA00FF
+}
+td{
+  text-align: center;
+}
+input[type='button']{
+  background-color: #00B0FF;
+  color: white;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 5px;
+}
+#editor{
+  width: 500px;
+  height: 35px;
+  font-size: 20px;
+}
