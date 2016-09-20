@@ -1,0 +1,14 @@
+{
+  "development": {
+    "storage": "db/memos.db",
+    "dialect": "sqlite"
+  },
+  "test": {
+    "storage": "db/memos.db",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "storage": "db/memos.db",
+    "dialect": "sqlite"
+  }
+}
